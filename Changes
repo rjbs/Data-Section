@@ -1,4 +1,8 @@
 Revision history for Data-Section
 
+0.002     2008-06-07
+          improve documentation
+          handle valid classes with no __DATA__ section
+
 0.001     2008-06-07
           first release

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use lib 't/lib';
-use Test::More tests => 18;
+use Test::More tests => 19;
 
 use Parent;
 use Child;
@@ -10,6 +10,8 @@ use Grandchild;
 use I::Parent;
 use I::Child;
 use I::Grandchild;
+
+use NoData;
 
 my @want = (
   Parent     => { a => \"1\n",   b => \"2\n",  c => \"3\n" },
@@ -47,5 +49,6 @@ is_deeply(
   I::Grandchild->merged_section_data,
   { a => \"111\n", b => \"22\n", c => \"33\n", d => \q{}, },
   "I::Grandchild->merged_section_data",
-)
+);
 
+is_deeply(NoData->local_section_data, {}, "nothing found in NoData");

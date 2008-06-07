@@ -47,6 +47,11 @@ Data::Section provides an easy way to access multiple named chunks of
 line-oriented data in your module's DATA section.  It was written to allow
 modules to store their own templates, but probably has other uses.
 
+=head1 WARNING
+
+You will need to use C<__DATA__> sections and not C<__END__> sections.  Yes, it
+matters.  Who knew!
+
 =head1 EXPORTS
 
 To get the methods exported by Data::Section, you must import like this:
@@ -60,7 +65,7 @@ Optional arguments may be given to Data::Section like this:
 Valid arguments are:
 
   inherit - if true, allow packages to inherit the data of the packages
-            from which they inherit
+            from which they inherit; default: true
 
   header_re - if given, changes the regex used to find section headers
               in the data section; it should leave the section name in $1
@@ -141,6 +146,7 @@ sub _mk_reader_group {
     my $template = $stash{ $pkg } = { };
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
+    return $stash{ $pkg} unless defined fileno *$dh;
 
     my $current;
     LINE: while (my $line = <$dh>) {

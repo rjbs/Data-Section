@@ -205,4 +205,17 @@ sub _mk_reader_group {
   return \%export;
 }
 
+=head1 SEE ALSO
+
+L<Inline::Files|Inline::Files> does something that is at first look similar,
+but it works with source filters, and contains the warning:
+
+  It is possible that this module may overwrite the source code in files that
+  use it. To protect yourself against this possibility, you are strongly
+  advised to use the -backup option described in "Safety first".
+
+Enough said.
+
+=cut
+
 1;

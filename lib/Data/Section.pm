@@ -9,6 +9,119 @@ use Sub::Exporter 0.979 -setup => {
   collectors => { INIT => sub { $_[0] = { into => $_[1]->{into} } } },
 };
 
+=head1 SYNOPSIS
+
+  package Letter::Resignation;
+  use Data::Section -setup;
+
+  sub quit {
+    my ($class, $angry, %arg) = @_;
+
+    my $template = $self->section_data(
+      ($angry ? "angry_" : "professional_") . "letter"
+    );
+
+    return fill_in($$template, \%arg);
+  }
+
+  __DATA__
+  __[ angry_letter ]__
+  Dear jerks,
+
+    I quit!
+
+  -- 
+  {{ $name }}
+  __[ professional_letter ]__
+  Dear {{ $boss }},
+
+    I quit, jerks!
+
+
+  -- 
+  {{ $name }}
+
+=head1 DESCRIPTION
+
+Data::Section provides an easy way to access multiple named chunks of
+line-oriented data in your module's DATA section.  It was written to allow
+modules to store their own templates, but probably has other uses.
+
+=head1 EXPORTS
+
+To get the methods exported by Data::Section, you must import like this:
+
+  use Data::Section -setup;
+
+Optional arguments may be given to Data::Section like this:
+
+  use Data::Section -setup => { ... };
+
+Valid arguments are:
+
+  inherit - if true, allow packages to inherit the data of the packages
+            from which they inherit
+
+  header_re - if given, changes the regex used to find section headers
+              in the data section; it should leave the section name in $1
+
+Three methods are exported by Data::Section:
+
+=head2 section_data
+
+  my $string_ref = $pkg->section_data($name); 
+
+This method returns a reference to a string containing the data from the name
+section, either in the invocant's C<DATA> section or in that of one of its
+ancestors.  (The ancestor must also derive from the class that imported
+Data::Section.)
+
+By default, named sections are delimited by lines that look like this:
+
+  __[ name ]__
+
+You can use as many underscores as you want, and the space around the name is
+optional.  This pattern can be configured with the C<header_re> option (see
+above).
+
+=head2 merged_section_data
+
+  my $data = $pkg->merged_section_data;
+
+This method returns a hashref containing all the data extracted from the
+package data for all the classes from which the invocant inherits -- as long as
+those classes also inherit from the package into which Data::Section was
+imported.
+
+In other words, given this inheritence tree:
+
+  A
+   \
+    B   C
+     \ /
+      D
+
+...if Data::Section was imported by A, then when D's C<merged_section_data> is
+invoked, C's data section will not be considered.  (This prevents the read
+position of C's data handle from being altered unexpectedly.)
+
+The keys in the returned hashref are the section names, and the values are
+B<references to> the strings extracted from the data sections.
+
+=head2 local_section_data
+
+  my $data = $pkg->local_section_data;
+
+This method returns a hashref containing all the data extracted from the
+package on which the method was invoked.  If called on an object, it will
+operate on the package into which the object was blessed.
+
+This method needs to be used carefull, because it's weird.  It returns only the
+data for the package on which it was invoked.  If the package on which it was
+invoked has no data sections, it returns an empty hashref.
+
+=cut
+
 sub _mk_reader_group {
   my ($mixin, $name, $arg, $col) = @_;
   my $base = $col->{INIT}{into};
@@ -20,13 +133,14 @@ sub _mk_reader_group {
 
   $export{local_section_data} = sub {
     my ($self) = @_;
+
     my $pkg = ref $self ? ref $self : $self;
 
     return $stash{ $pkg } if $stash{ $pkg };
 
     my $template = $stash{ $pkg } = { };
 
-    my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} };
+    my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
 
     my $current;
     LINE: while (my $line = <$dh>) {
@@ -85,7 +199,7 @@ sub _mk_reader_group {
         if exists $class->$lsd->{$name};
     }
 
-    return undef;
+    return undef; ## no critic Undef
   };
 
   return \%export;

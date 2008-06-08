@@ -20,18 +20,21 @@ my @want = (
 );
 
 for (my $i = 0; $i < @want; $i += 2) {
+  my $inv = $want[ $i ];
+
   for my $prefix ('', 'I::') {
+    my $inv = "$prefix$inv";
     is_deeply(
-      "$prefix$want[ $i ]"->local_section_data,
+      $inv->local_section_data,
       $want[ $i + 1 ],
-      "$prefix$want[$i]->local_section_data"
+      "$inv->local_section_data",
     );
   }
 
   is_deeply(
-    "$want[ $i ]"->merged_section_data,
+    $inv->merged_section_data,
     $want[ $i + 1 ],
-    "$want[$i]->merged_section_data"
+    "$inv->merged_section_data",
   );
 }
 

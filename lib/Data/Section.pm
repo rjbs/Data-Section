@@ -3,7 +3,7 @@ use warnings;
 package Data::Section;
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
-use MRO::Compat;
+use Class::ISA;
 use Sub::Exporter 0.979 -setup => {
   groups     => { setup => \'_mk_reader_group' },
   collectors => { INIT => sub { $_[0] = { into => $_[1]->{into} } } },
@@ -176,7 +176,7 @@ sub _mk_reader_group {
     my $lsd = $export{local_section_data};
 
     my %merged;
-    for my $class (@{ mro::get_linear_isa($pkg) }) {
+    for my $class (Class::ISA::self_and_super_path($pkg)) {
       # in case of c3 + non-$base item showing up
       next unless $class->isa($base);
       my $sec_data = $class->$lsd;
@@ -193,11 +193,13 @@ sub _mk_reader_group {
     my ($self, $name) = @_;
     my $pkg = ref $self ? ref $self : $self;
 
-    my $to_check = $arg->{inherit} ? mro::get_linear_isa($pkg) : [ $pkg ];
+    my @to_check = $arg->{inherit}
+                 ? Class::ISA::self_and_super_path($pkg) 
+                 : $pkg;
 
     my $lsd = $export{local_section_data}; # in case they use another name
 
-    for my $class (@$to_check) {
+    for my $class (@to_check) {
       # in case of c3 + non-$base item showing up
       next unless $class->isa($base);
 

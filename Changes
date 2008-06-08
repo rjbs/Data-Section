@@ -1,5 +1,9 @@
 Revision history for Data-Section
 
+0.003     2008-06-07
+          fix non-5.8-friendly syntax in tests
+          swap mro out for Class::ISA; it shouldn't matter
+
 0.002     2008-06-07
           improve documentation
           handle valid classes with no __DATA__ section

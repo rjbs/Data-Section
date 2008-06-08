@@ -130,7 +130,7 @@ invoked has no data sections, it returns an empty hashref.
 sub _mk_reader_group {
   my ($mixin, $name, $arg, $col) = @_;
   my $base = $col->{INIT}{into};
-  my $header_re = $arg->{header_re} || qr/\A_+\[\s*([^\]]+)\s*\]_+\Z/;
+  my $header_re = $arg->{header_re} || qr/\A_+\[\s*([^\]]+?)\s*\]_+\Z/;
   $arg->{inherit} = 1 unless exists $arg->{inherit};
 
   my %export;

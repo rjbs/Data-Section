@@ -1,5 +1,8 @@
 Revision history for Data-Section
 
+0.004     2008-06-07
+          fix regex to exclude whitespace after name
+
 0.003     2008-06-07
           fix non-5.8-friendly syntax in tests
           swap mro out for Class::ISA; it shouldn't matter

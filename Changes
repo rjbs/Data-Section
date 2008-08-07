@@ -1,5 +1,8 @@
 Revision history for Data-Section
 
+0.005     2008-08-07
+          rebuild to ensure directory entries in archive
+
 0.004     2008-06-07
           fix regex to exclude whitespace after name
 

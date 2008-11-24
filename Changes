@@ -1,5 +1,8 @@
 Revision history for Data-Section
 
+0.006     2008-11-23
+          remove smoke tests that did nothing useful; thanks Florian
+
 0.005     2008-08-07
           rebuild to ensure directory entries in archive
 

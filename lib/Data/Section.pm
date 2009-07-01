@@ -223,12 +223,19 @@ It can be a bit tricky for 2 reasons:
 2. With MooseX::Declare, Data sections are outside the package without an explicit package declaration.
 
    package Foo; # Needed to make it work
+
    use MooseX::Declare;
    class Foo {
-       use Data::Section -setup;
+
+       # Utility to tell Sub::Exporter modules to export methods.
+       use Sub::Exporter::ForMethods qw( method_installer );
+
+       # method_installer returns a sub.
+       use Data::Section { installer => method_installer, }, -setup;
 
        method sectionA {
-          return local_section_data(__PACKAGE__)->{'SectionA'};
+          # Remembering Data::Section returns string refs.
+          return ${ $self->section_data('SectionA') };
        }
    }
    __DATA__

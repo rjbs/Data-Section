@@ -1,5 +1,9 @@
 Revision history for Data-Section
 
+{{$NEXT}}
+          add docs on using ForMethod to avoid autocleaning (thanks, Kent
+          Fredric)
+
 0.006     2008-11-23
           remove smoke tests that did nothing useful; thanks Florian
 

@@ -213,6 +213,27 @@ sub _mk_reader_group {
   return \%export;
 }
 
+=head1 TIPS AND TRICKS
+
+=head2 C<any(qw(MooseX::Declare namespace::autoclean))>
+
+It can be a bit tricky for 2 reasons:
+
+1. With MooseX::Declare and namespace::autoclean, C<$self>->C<section_data> and friends are cleaned off. 
+2. With MooseX::Declare, Data sections are outside the package without an explicit package declaration.
+
+   package Foo; # Needed to make it work
+   use MooseX::Declare;
+   class Foo {
+       use Data::Section -setup;
+
+       method sectionA {
+          return local_section_data(__PACKAGE__)->{'SectionA'};
+       }
+   }
+   __DATA__
+   __[ SectionA ]__
+
 =head1 SEE ALSO
 
 L<Inline::Files|Inline::Files> does something that is at first look similar,

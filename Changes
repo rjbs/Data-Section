@@ -1,6 +1,9 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+          re-release to include a META.yml for cpandeps
+
+0.091820  2009-07-01 18:25:50 UTC
           add docs on using ForMethod to avoid autocleaning (thanks, Kent
           Fredric)
 

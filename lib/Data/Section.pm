@@ -64,14 +64,14 @@ Optional arguments may be given to Data::Section like this:
 
 Valid arguments are:
 
-  inherit - if true, allow packages to inherit the data of the packages
-            from which they inherit; default: true
+  inherit      - if true, allow packages to inherit the data of the packages
+                 from which they inherit; default: true
 
-  header_re - if given, changes the regex used to find section headers
-              in the data section; it should leave the section name in $1
+  header_re    - if given, changes the regex used to find section headers
+                 in the data section; it should leave the section name in $1
 
-  default - if given, allows the first section to has no header and set
-            its name
+  default_name - if given, allows the first section to has no header and set
+                 its name
 
 Three methods are exported by Data::Section:
 
@@ -152,8 +152,8 @@ sub _mk_reader_group {
     return $stash{ $pkg} unless defined fileno *$dh;
 
     my $current;
-    if ($arg->{default}) {
-        $current = $arg->{default};
+    if ($arg->{default_name}) {
+        $current = $arg->{default_name};
         $template->{ $current } = \(my $blank = q{});
     }
     LINE: while (my $line = <$dh>) {

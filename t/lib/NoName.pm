@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package NoName;
-use Data::Section -setup => { default => 'a' };
+use Data::Section -setup => { default_name => 'a' };
 
 1;
 __DATA__

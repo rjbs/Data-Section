@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+          allow data before first marker if default_name given
+          (thanks, Uwe Voelker)
 
 0.093330  2009-11-29 17:45:10 America/New_York
           re-release to include a META.yml for cpandeps

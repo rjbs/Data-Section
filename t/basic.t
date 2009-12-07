@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use lib 't/lib';
-use Test::More tests => 19;
+use Test::More tests => 20;
 
 use Parent;
 use Child;
@@ -12,6 +12,7 @@ use I::Child;
 use I::Grandchild;
 
 use NoData;
+use NoName;
 
 my @want = (
   Parent     => { a => \"1\n",   b => \"2\n",  c => \"3\n" },
@@ -55,3 +56,9 @@ is_deeply(
 );
 
 is_deeply(NoData->local_section_data, {}, "nothing found in NoData");
+
+is_deeply(
+  NoName->local_section_data,
+  { a => \"1\n", b => \"2\n" },
+  "default name in NoName",
+);

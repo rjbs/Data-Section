@@ -70,6 +70,9 @@ Valid arguments are:
   header_re - if given, changes the regex used to find section headers
               in the data section; it should leave the section name in $1
 
+  default - if given, allows the first section to has no header and set
+            its name
+
 Three methods are exported by Data::Section:
 
 =head2 section_data
@@ -149,6 +152,10 @@ sub _mk_reader_group {
     return $stash{ $pkg} unless defined fileno *$dh;
 
     my $current;
+    if ($arg->{default}) {
+        $current = $arg->{default};
+        $template->{ $current } = \(my $blank = q{});
+    }
     LINE: while (my $line = <$dh>) {
       if ($line =~ $header_re) {
         $current = $1;

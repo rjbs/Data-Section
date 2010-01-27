@@ -170,7 +170,7 @@ sub _mk_reader_group {
     my $template = $stash{ $pkg } = { };
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
-    return $stash{ $pkg} unless defined fileno *$dh;
+    return $stash{ $pkg } unless defined fileno *$dh;
 
     my $current;
     if ($arg->{default_name}) {

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use lib 't/lib';
-use Test::More tests => 20;
+use Test::More;
 
 use Parent;
 use Child;
@@ -39,15 +39,90 @@ for (my $i = 0; $i < @want; $i += 2) {
   );
 }
 
+# The classes that do not begin with I:: are non-inheriting, so we do not
+# expect to see (for example) the parent's "b" section propagated to the
+# grandchild. -- rjbs, 2010-01-27
 is_deeply(Parent    ->section_data('a'), \"1\n",   "Parent's a");
 is_deeply(Parent    ->section_data('b'), \"2\n",   "Parent's b");
 is_deeply(Grandchild->section_data('a'), \"111\n", "Grandchild's a");
 is_deeply(Grandchild->section_data('b'), undef,   "Grandchild's b (none)");
 
+is_deeply(
+  [ sort Parent->section_data_names ],
+  [ qw(a b c) ],
+  "Parent section data names",
+);
+
+is_deeply(
+  [ sort Parent->local_section_data_names ],
+  [ qw(a b c) ],
+  "Parent local section data names",
+);
+
+is_deeply(
+  [ sort Parent->merged_section_data_names ],
+  [ qw(a b c) ],
+  "Parent merged section data names",
+);
+
+is_deeply(
+  [ sort Child->section_data_names ],
+  [ qw(b c d) ],
+  "Child section data names",
+);
+
+is_deeply(
+  [ sort Child->local_section_data_names ],
+  [ qw(b c d) ],
+  "Child local section data names",
+);
+
+is_deeply(
+  [ sort Child->merged_section_data_names ],
+  [ qw(b c d) ],
+  "Child merged section data names",
+);
+
 is_deeply(I::Parent    ->section_data('a'), \"1\n",   "I::Parent's a");
 is_deeply(I::Parent    ->section_data('b'), \"2\n",   "I::Parent's b");
 is_deeply(I::Grandchild->section_data('a'), \"111\n", "I::Grandchild's a");
 is_deeply(I::Grandchild->section_data('b'), \"22\n",  "I::Grandchild's b (via Child)");
+
+is_deeply(
+  [ sort I::Parent->section_data_names ],
+  [ qw(a b c) ],
+  "I::Parent section data names",
+);
+
+is_deeply(
+  [ sort I::Parent->local_section_data_names ],
+  [ qw(a b c) ],
+  "I::Parent local section data names",
+);
+
+is_deeply(
+  [ sort I::Parent->merged_section_data_names ],
+  [ qw(a b c) ],
+  "I::Parent merged section data names",
+);
+
+is_deeply(
+  [ sort I::Child->section_data_names ],
+  [ qw(a b c d) ],
+  "I::Child merged section data names",
+);
+
+is_deeply(
+  [ sort I::Child->local_section_data_names ],
+  [ qw(b c d) ],
+  "I::Child local section data names",
+);
+
+is_deeply(
+  [ sort I::Child->merged_section_data_names ],
+  [ qw(a b c d) ],
+  "I::Child merged section data names",
+);
 
 is_deeply(
   I::Grandchild->merged_section_data,
@@ -62,3 +137,5 @@ is_deeply(
   { a => \"1\n", b => \"2\n" },
   "default name in NoName",
 );
+
+done_testing;

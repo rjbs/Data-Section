@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+
+0.100270  2010-01-27 22:43:33 America/New_York
           switch from Class::ISA to MRO::Compat
           added *_section_names
           eliminate some duplicated code

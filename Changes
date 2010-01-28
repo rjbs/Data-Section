@@ -1,6 +1,9 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+          switch from Class::ISA to MRO::Compat
+          added *_section_names
+          eliminate some duplicated code
 
 0.093410  2009-12-07 18:45:56 America/New_York
           allow data before first marker if default_name given

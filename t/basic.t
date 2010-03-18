@@ -14,6 +14,7 @@ use I::Grandchild;
 use NoData;
 use NoName;
 use Relaxed;
+use Header;
 
 my @want = (
   Parent     => { a => \"1\n",   b => \"2\n",  c => \"3\n" },
@@ -143,6 +144,12 @@ is_deeply(
   Relaxed->local_section_data,
   { a => \"1\n", b => \"2\n" },
   "allows empty lines before the first section.",
+);
+
+is_deeply(
+  Header->local_section_data,
+  { a => \"1\n", b => \"2\n" },
+  "test header_re",
 );
 
 done_testing;

@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+
+0.100770  2010-03-18 08:05:46 America/New_York
           this release's changes courtesy of Tatsuhiko Miyagawa:
           __END__ now ends the whole data section; ignore_end may come someday
           empty data lines between __DATA__ and first section are ignored

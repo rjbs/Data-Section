@@ -13,6 +13,7 @@ use I::Grandchild;
 
 use NoData;
 use NoName;
+use Relaxed;
 
 my @want = (
   Parent     => { a => \"1\n",   b => \"2\n",  c => \"3\n" },
@@ -136,6 +137,12 @@ is_deeply(
   NoName->local_section_data,
   { a => \"1\n", b => \"2\n" },
   "default name in NoName",
+);
+
+is_deeply(
+  Relaxed->local_section_data,
+  { a => \"1\n", b => \"2\n" },
+  "allows empty lines before the first section.",
 );
 
 done_testing;

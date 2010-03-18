@@ -1,6 +1,9 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+          this release's changes courtesy of Tatsuhiko Miyagawa:
+          __END__ now ends the whole data section; ignore_end may come someday
+          empty data lines between __DATA__ and first section are ignored
 
 0.100270  2010-01-27 22:43:33 America/New_York
           switch from Class::ISA to MRO::Compat

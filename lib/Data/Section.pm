@@ -92,6 +92,9 @@ You can use as many underscores as you want, and the space around the name is
 optional.  This pattern can be configured with the C<header_re> option (see
 above).
 
+When a line containing only C<__END__> is reached, all processing of sections
+ends.
+
 =head2 section_data_names
 
   my @names = $pkg->section_data_names;

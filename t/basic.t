@@ -15,6 +15,7 @@ use NoData;
 use NoName;
 use Relaxed;
 use Header;
+use End;
 
 my @want = (
   Parent     => { a => \"1\n",   b => \"2\n",  c => \"3\n" },
@@ -150,6 +151,12 @@ is_deeply(
   Header->local_section_data,
   { a => \"1\n", b => \"2\n" },
   "test header_re",
+);
+
+is_deeply(
+  End->local_section_data,
+  { a => \"1\n", b => \"2\n" },
+  "ignore __END__",
 );
 
 done_testing;

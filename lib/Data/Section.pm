@@ -184,6 +184,7 @@ sub _mk_reader_group {
         next LINE;
       }
 
+      last LINE if $line =~ /^__END__/;
       next LINE if !defined $current and $line =~ /^\s*$/;
 
       Carp::confess("bogus data section: text outside of named section")

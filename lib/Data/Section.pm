@@ -157,7 +157,7 @@ C<local_section_data> method.
 sub _mk_reader_group {
   my ($mixin, $name, $arg, $col) = @_;
   my $base = $col->{INIT}{into};
-  my $header_re = $arg->{header_re} || qr/\A_+\[\s*([^\]]+?)\s*\]_+\Z/;
+  my $header_re = $arg->{header_re} || qr/\A_+\[\s*([^\]]+?)\s*\]_+\r?\Z/;
   $arg->{inherit} = 1 unless exists $arg->{inherit};
 
   my %export;

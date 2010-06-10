@@ -163,7 +163,7 @@ is_deeply(
 
 is_deeply(
   WindowsNewlines->local_section_data,
-  { n => \"foo\n" },
+  { n => \"foo\r\n" },
   "windows newlines work",
 );
 

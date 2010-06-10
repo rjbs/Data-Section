@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+          We now attempt to work with files with Win32 line endings, thanks to
+          Christian Walde.
 
 0.100770  2010-03-18 08:05:46 America/New_York
           this release's changes courtesy of Tatsuhiko Miyagawa:

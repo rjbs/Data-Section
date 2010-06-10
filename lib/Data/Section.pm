@@ -165,8 +165,8 @@ sub _mk_reader_group {
           ([^\]]+?)   # this is the actual name of the section
         \s*           # any whitespace
       \]_+            # ]__
-      \r?             # possible cariage return for windows files
-    \Z                # end
+      [\x0d\x0a]{1,2} # possible cariage return for windows files
+    \z                # end
   /x;
 
   my $header_re = $arg->{header_re} || $default_header_re;

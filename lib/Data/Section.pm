@@ -157,18 +157,18 @@ C<local_section_data> method.
 sub _mk_reader_group {
   my ($mixin, $name, $arg, $col) = @_;
   my $base = $col->{INIT}{into};
-  
+
   my $default_header_re = qr/
-    \A                (?# start )
-      _+\[            (?# __[ )
-        \s*           (?# any whitespace )
-          ([^\]]+?)   (?# this is the actual name of the section )
-        \s*           (?# any whitespace )
-      \]_+            (?# ]__ )
-      \r?             (?# possible cariage return for windows files )
-    \Z                (?# end )
+    \A                # start
+      _+\[            # __[
+        \s*           # any whitespace
+          ([^\]]+?)   # this is the actual name of the section
+        \s*           # any whitespace
+      \]_+            # ]__
+      \r?             # possible cariage return for windows files
+    \Z                # end
   /x;
-  
+
   my $header_re = $arg->{header_re} || $default_header_re;
   $arg->{inherit} = 1 unless exists $arg->{inherit};
 

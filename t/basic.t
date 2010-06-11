@@ -161,9 +161,11 @@ is_deeply(
   "ignore __END__",
 );
 
+my $crlf = $^O eq 'MSWin32' ? "\n" : "\r\n";
+
 is_deeply(
   WindowsNewlines->local_section_data,
-  { n => \"foo\r\n" },
+  { n => \"foo$crlf" },
   "windows newlines work",
 );
 

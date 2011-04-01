@@ -111,7 +111,7 @@ package data for all the classes from which the invocant inherits -- as long as
 those classes also inherit from the package into which Data::Section was
 imported.
 
-In other words, given this inheritence tree:
+In other words, given this inheritance tree:
 
   A
    \

@@ -90,7 +90,8 @@ By default, named sections are delimited by lines that look like this:
 
 You can use as many underscores as you want, and the space around the name is
 optional.  This pattern can be configured with the C<header_re> option (see
-above).
+above).  If present, a single leading C<\> is removed, so that sections can
+encode lines that look like section delimiters.
 
 When a line containing only C<__END__> is reached, all processing of sections
 ends.

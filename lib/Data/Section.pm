@@ -311,7 +311,11 @@ data section in the correct package.
 
 =head1 SEE ALSO
 
-L<Inline::Files|Inline::Files> does something that is at first look similar,
+=begin :list
+
+* L<article for RJBS Advent 2009|http://advent.rjbs.manxome.org/2009/2009-12-09.html>
+
+* L<Inline::Files|Inline::Files> does something that is at first look similar,
 but it works with source filters, and contains the warning:
 
   It is possible that this module may overwrite the source code in files that
@@ -319,6 +323,8 @@ but it works with source filters, and contains the warning:
   advised to use the -backup option described in "Safety first".
 
 Enough said.
+
+=end :list
 
 =cut
 

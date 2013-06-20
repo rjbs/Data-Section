@@ -1,6 +1,9 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+          add a link to an Advent article about Data-Section
+
+          update bugtracker, repo, etc.
 
 0.101621  2011-04-29 07:26:31 America/New_York
           document the \-escaping behavior of sections

@@ -142,9 +142,9 @@ This method returns a hashref containing all the data extracted from the
 package on which the method was invoked.  If called on an object, it will
 operate on the package into which the object was blessed.
 
-This method needs to be used carefull, because it's weird.  It returns only the
-data for the package on which it was invoked.  If the package on which it was
-invoked has no data sections, it returns an empty hashref.
+This method needs to be used carefully, because it's weird.  It returns only
+the data for the package on which it was invoked.  If the package on which it
+was invoked has no data sections, it returns an empty hashref.
 
 =head2 local_section_data_names
 

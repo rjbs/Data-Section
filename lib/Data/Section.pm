@@ -3,6 +3,7 @@ use warnings;
 package Data::Section;
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
+use Encode qw/decode/;
 use MRO::Compat 0.09;
 use Sub::Exporter 0.979 -setup => {
   groups     => { setup => \'_mk_reader_group' },
@@ -63,6 +64,9 @@ Optional arguments may be given to Data::Section like this:
   use Data::Section -setup => { ... };
 
 Valid arguments are:
+
+  encoding     - if given, gives the encoding needed to decode bytes in
+                 data sections; default; UTF-8
 
   inherit      - if true, allow packages to inherit the data of the packages
                  from which they inherit; default: true
@@ -173,6 +177,8 @@ sub _mk_reader_group {
   my $header_re = $arg->{header_re} || $default_header_re;
   $arg->{inherit} = 1 unless exists $arg->{inherit};
 
+  my $default_encoding = defined $arg->{encoding} ? $arg->{encoding} : 'UTF-8';
+
   my %export;
   my %stash = ();
 
@@ -187,8 +193,9 @@ sub _mk_reader_group {
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
     return $stash{ $pkg } unless defined fileno *$dh;
+    binmode( $dh, ":raw" );
 
-    my $current;
+    my ($current, $current_line);
     if ($arg->{default_name}) {
         $current = $arg->{default_name};
         $template->{ $current } = \(my $blank = q{});
@@ -196,6 +203,7 @@ sub _mk_reader_group {
     LINE: while (my $line = <$dh>) {
       if ($line =~ $header_re) {
         $current = $1;
+        $current_line = 0;
         $template->{ $current } = \(my $blank = q{});
         next LINE;
       }
@@ -206,6 +214,10 @@ sub _mk_reader_group {
       Carp::confess("bogus data section: text outside of named section")
         unless defined $current;
 
+      $current_line++;
+      my $decoded_line = eval { decode($default_encoding, $line, Encode::FB_CROAK) }
+        or warn "Invalid character encoding in $current, line $current_line\n";
+      $line = $decoded_line if defined $decoded_line;
       $line =~ s/\A\\//;
 
       ${$template->{$current}} .= $line;

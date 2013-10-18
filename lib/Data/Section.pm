@@ -68,6 +68,9 @@ Valid arguments are:
   encoding     - if given, gives the encoding needed to decode bytes in
                  data sections; default; UTF-8
 
+                 the special value "bytes" will leave the bytes in the string
+                 verbatim
+
   inherit      - if true, allow packages to inherit the data of the packages
                  from which they inherit; default: true
 
@@ -215,9 +218,11 @@ sub _mk_reader_group {
         unless defined $current;
 
       $current_line++;
-      my $decoded_line = eval { decode($default_encoding, $line, Encode::FB_CROAK) }
-        or warn "Invalid character encoding in $current, line $current_line\n";
-      $line = $decoded_line if defined $decoded_line;
+      unless ($default_encoding eq 'bytes') {
+        my $decoded_line = eval { decode($default_encoding, $line, Encode::FB_CROAK) }
+          or warn "Invalid character encoding in $current, line $current_line\n";
+        $line = $decoded_line if defined $decoded_line;
+      }
       $line =~ s/\A\\//;
 
       ${$template->{$current}} .= $line;

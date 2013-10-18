@@ -1,6 +1,9 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+          [THIS MIGHT BREAK STUFF]
+        - add an "encoding" parameter to set encoding of data section contents;
+          this defaults to UTF-8 (thanks, David Golden!)
 
 0.101622  2013-06-19 21:48:02 America/New_York
           add a link to an Advent article about Data-Section

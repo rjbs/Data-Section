@@ -2,7 +2,7 @@ Revision history for Data-Section
 
 {{$NEXT}}
 
-0.20000   2013-10-18 15:55:21 America/New_York
+0.200002  2013-10-19 22:11:32 America/New_York
           [THIS MIGHT BREAK STUFF]
         - add an "encoding" parameter to set encoding of data section contents;
           this defaults to UTF-8 (thanks, David Golden!)

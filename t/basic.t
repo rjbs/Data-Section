@@ -161,7 +161,7 @@ is_deeply(
   "ignore __END__",
 );
 
-my $crlf = $^O eq 'MSWin32' ? "\n" : "\r\n";
+my $crlf = "\015\012";
 
 is_deeply(
   WindowsNewlines->local_section_data,

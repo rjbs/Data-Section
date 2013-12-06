@@ -161,11 +161,9 @@ is_deeply(
   "ignore __END__",
 );
 
-my $crlf = "\015\012";
-
 is_deeply(
   WindowsNewlines->local_section_data,
-  { n => \"foo$crlf" },
+  { n => \"foo\n" },
   "windows newlines work",
 );
 

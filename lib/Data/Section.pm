@@ -196,7 +196,7 @@ sub _mk_reader_group {
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
     return $stash{ $pkg } unless defined fileno *$dh;
-    binmode( $dh, ":perlio");
+    binmode( $dh, ":raw" );
 
     my ($current, $current_line);
     if ($arg->{default_name}) {

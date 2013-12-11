@@ -2,6 +2,11 @@ Revision history for Data-Section
 
 {{$NEXT}}
 
+0.200005  2013-12-11 08:03:08 America/New_York
+        - open DATA handles both :raw and :bytes to avoid content munging on
+          Win32 (thanks, Kenichi Ishigaki!)
+        - This is not yet a perfect solution for Win32.
+
 0.200004  2013-12-01 21:31:02 America/New_York
         - avoid confusion between \n, \x0d\x0a, and Win32 (thanks, Kenichi
           Ishigaki!)

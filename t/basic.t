@@ -161,12 +161,17 @@ is_deeply(
   "ignore __END__",
 );
 
-my $crlf = "\015\012";
+SKIP: {
+  skip "perl below v14 on win32 converts newlines before they reach DATA", 1
+    if $^O eq 'MSWin32' and $] < 5.014;
 
-is_deeply(
-  WindowsNewlines->local_section_data,
-  { n => \"foo$crlf" },
-  "windows newlines work",
-);
+  my $crlf = "\015\012";
+
+  is_deeply(
+    WindowsNewlines->local_section_data,
+    { n => \"foo$crlf" },
+    "windows newlines work",
+  );
+}
 
 done_testing;

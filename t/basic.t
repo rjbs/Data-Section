@@ -162,7 +162,7 @@ is_deeply(
 );
 
 SKIP: {
-  skip "perl below v14 on win32 converts newlines before they reach DATA", 1
+  skip "perl below v5.14 on Win32 converts newlines before they reach DATA", 1
     if $^O eq 'MSWin32' and $] < 5.014;
 
   my $crlf = "\015\012";

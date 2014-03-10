@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+        - skip tests on Win32 pre-5.14 related to line endings; perl munges the
+          data before we're able to get at it (thanks, Christian Walde!)
 
 0.200005  2013-12-11 08:03:08 America/New_York
         - open DATA handles both :raw and :bytes to avoid content munging on

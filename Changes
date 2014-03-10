@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+
+0.200006  2014-03-10 10:14:45-04:00 America/New_York
         - skip tests on Win32 pre-5.14 related to line endings; perl munges the
           data before we're able to get at it (thanks, Christian Walde!)
 

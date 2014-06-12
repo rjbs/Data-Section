@@ -248,7 +248,7 @@ sub _mk_reader_group {
     my %merged;
     for my $class (@{ mro::get_linear_isa($pkg) }) {
       # in case of c3 + non-$base item showing up
-      next unless $class->isa($base);
+      next unless $class->DOES($base);
       my $sec_data = $class->$lsd;
 
       # checking for truth is okay, since things must be undef or a ref

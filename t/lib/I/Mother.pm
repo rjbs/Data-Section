@@ -1,7 +1,7 @@
 use strict;
 use warnings;
-package Parent;
-use Data::Section -setup => { inherit => 0 };
+package I::Mother;
+use Data::Section -setup;
 
 1;
 __DATA__

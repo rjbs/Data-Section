@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+
+0.200007  2017-07-07 11:36:04-04:00 America/New_York
         - rename the test library "Parent.pm" to "Mother.pm" to avoid conflict
           with core "parent.pm" on case-insensitive systems (thanks, Dan Kogai)
 

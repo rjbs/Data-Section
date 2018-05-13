@@ -18,7 +18,7 @@ use Sub::Exporter 0.979 -setup => {
   sub quit {
     my ($class, $angry, %arg) = @_;
 
-    my $template = $self->section_data(
+    my $template = $class->section_data(
       ($angry ? "angry_" : "professional_") . "letter"
     );
 

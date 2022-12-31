@@ -1,6 +1,8 @@
 Revision history for Data-Section
 
 {{$NEXT}}
+
+0.200008  2022-12-31 13:50:15-05:00 America/New_York
         - fix to some example code (thanks, Graham Ollis)
         - update packaging and metadata
         - minimum required Perl is now v5.12
